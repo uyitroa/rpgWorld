@@ -42,7 +42,7 @@ public abstract class ArtScene implements Level {
 	private int syncFrameText = 1;
 	private int syncFrameImage = 1;
 
-	protected int indexScene = 0;
+	private int indexScene = 0;
 	private int indexImage = 0;
 	private int indexText = 0;
 	private int count_imageScene = 0;
@@ -98,7 +98,7 @@ public abstract class ArtScene implements Level {
 			glTexCoord2f(0, 1);
 			glVertex2f(0, currentImage.getTextureHeight());
 		glEnd();
-		System.out.println(indexScene);
+
 		if(count_imageScene < this.image_per_scene.get(indexScene)) {
 			if(syncFrameImage < 0) {
 				currentImage = texture.get(indexImage);

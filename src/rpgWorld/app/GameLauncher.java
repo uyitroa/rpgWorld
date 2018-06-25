@@ -68,7 +68,7 @@ public class GameLauncher {
 	}
 
 	public void gameLoop() {
-		while (!Display.isCloseRequested()) {
+		while (currentLevel < level.size() && !Display.isCloseRequested()) {
 			glClear(GL_COLOR_BUFFER_BIT);
 
 			if(level.get(currentLevel).show()) {

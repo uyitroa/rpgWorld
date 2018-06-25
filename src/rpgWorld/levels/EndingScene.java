@@ -28,12 +28,11 @@ public class EndingScene extends ArtScene {
 			currentIndex++;
 		}
 
-
-		write(TEXT_X[currentIndex], TEXT_Y[currentIndex], TEXT[currentIndex]);
-		
 		if(this.currentIndex == TEXT.length) {
 			return true;
 		}
+
+		write(TEXT_X[currentIndex], TEXT_Y[currentIndex], TEXT[currentIndex]);
 
 		return false;
 	}
