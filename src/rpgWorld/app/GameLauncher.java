@@ -59,7 +59,7 @@ public class GameLauncher {
 
 	public void setup() {
 		level.add(new IntroductionScene());
-		//level.add(new EndingScene());
+		level.add(new EndingScene());
 	}
 	
 	public void initFont() {

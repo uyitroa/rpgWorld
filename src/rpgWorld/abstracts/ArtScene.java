@@ -39,12 +39,13 @@ public abstract class ArtScene implements Level {
 	private Texture currentImage;
 	private String subText = " ";
  
-	private int syncFrameText = 0;
-	private int syncFrameImage = 0;
+	private int syncFrameText = 1;
+	private int syncFrameImage = 1;
 
+	protected int indexScene = 0;
 	private int indexImage = 0;
-	private int indexSubImage = 0;
 	private int indexText = 0;
+	private int count_imageScene = 0;
 	
 	private List<Integer> image_per_scene = new ArrayList<>();
 	
@@ -81,7 +82,9 @@ public abstract class ArtScene implements Level {
 	
 	public boolean display() {
 
-		glBindTexture(GL_TEXTURE_2D, currentImage.getTextureID());
+		syncFrameImage--;
+
+		glBindTexture(GL_TEXTURE_2D, this.currentImage.getTextureID());
 		glBegin(GL_QUADS);
 			glTexCoord2f(0, 0);
 			glVertex2f(0, 0);
@@ -95,19 +98,19 @@ public abstract class ArtScene implements Level {
 			glTexCoord2f(0, 1);
 			glVertex2f(0, currentImage.getTextureHeight());
 		glEnd();
-
-		
-		if(indexSubImage < this.image_per_scene.get(indexImage)) {
-			if(syncFrameImage == 0) {
-				currentImage = texture.get(indexImage + indexSubImage);
-				indexSubImage++;
+		System.out.println(indexScene);
+		if(count_imageScene < this.image_per_scene.get(indexScene)) {
+			if(syncFrameImage < 0) {
+				currentImage = texture.get(indexImage);
+				indexImage++;
 				syncFrameImage = FRAME_IMAGE;
+				count_imageScene++;
 			}
 		} else {
-			indexSubImage = 0;
 			if(finishedText) {
-				indexImage++;
+				indexScene++;
 				finishedText = false;
+				count_imageScene = 0;
 				try {
 					Thread.sleep(this.WAIT_NEXT);
 				} catch (InterruptedException e) {
@@ -115,10 +118,11 @@ public abstract class ArtScene implements Level {
 					e.printStackTrace();
 				}
 				return true;
+			} else {
+				indexImage -= count_imageScene;
+				count_imageScene = 0;
 			}
 		}
-		syncFrameImage--;
-
 		return false;
 	}
 	
