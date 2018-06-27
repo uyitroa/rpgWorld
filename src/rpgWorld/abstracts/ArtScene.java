@@ -127,7 +127,7 @@ public abstract class ArtScene implements Level {
 				}
 				this.finishedImage = true;
 				return;
-			} else {
+			} else { //if text not finished, re-animate the scene
 				indexImage -= count_imageScene;
 				count_imageScene = 0;
 			}
@@ -135,16 +135,19 @@ public abstract class ArtScene implements Level {
 		this.finishedImage = false;
 	}
 	
+	/*
+	 * display the text (each letter)
+	 */
 	public void write(int x, int y, String text) {
 		TextureImpl.bindNone();
 		GameLauncher.font.drawString(x, y, subText);
 		
-		if(indexText < text.length()) {
+		if(indexText < text.length()) { //if text not finished
 			if(syncFrameText == 0) {
 				subText = text.substring(0, indexText + 1);
 
 				if(text.charAt(indexText) == '.') {
-					syncFrameText += WAIT_DOT; //wait twice when there is a dot.
+					syncFrameText += WAIT_DOT;  //wait a bit longer when ther's a dot.
 				}
 				
 				indexText++;
