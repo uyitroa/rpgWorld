@@ -29,7 +29,8 @@ public class IntroductionScene extends ArtScene {
 	
 	public boolean show() {
 
-		if(super.display()) {
+		super.display();
+		if(super.finishedImage) {
 			currentIndex++;
 		}
 		

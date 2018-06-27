@@ -12,7 +12,7 @@ public interface Level {
 	/*
 	 * Draw the level
 	 */
-	public boolean display();
+	public void display();
 	
 	public void init();
 	

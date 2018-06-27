@@ -28,9 +28,11 @@ import rpgWorld.interfaces.Level;
 */
 public abstract class ArtScene implements Level {
 
+	// delay for each image/letter
 	private final int FRAME_TEXT = 2;
-	private final int WAIT_DOT = 20;
 	private final int FRAME_IMAGE = 7;
+	
+	private final int WAIT_DOT = 20;
 	private final int WAIT_NEXT = 2000;
 	
 	String[] filename;
@@ -39,6 +41,7 @@ public abstract class ArtScene implements Level {
 	private Texture currentImage;
 	private String subText = " ";
  
+	//sleep time count for each image/letter
 	private int syncFrameText = 1;
 	private int syncFrameImage = 1;
 
@@ -47,10 +50,12 @@ public abstract class ArtScene implements Level {
 	private int indexText = 0;
 	private int count_imageScene = 0;
 	
-	private List<Integer> image_per_scene = new ArrayList<>();
+	private List<Integer> image_per_scene = new ArrayList<>(); //number of image per scene
 	
 	int speedText = FRAME_TEXT;
+	
 	boolean finishedText = false;
+	public boolean finishedImage = false;
 
 	public ArtScene(String[] filename) {
 		this.filename = filename;
@@ -65,12 +70,15 @@ public abstract class ArtScene implements Level {
 			for(String name : filename) {
 				if(name.contains(".gif")) {
 					splitee = name.split(".gif-"); // name file is   <namefile>.gif-<number of image> ex: background.gif-10
+					
 					this.image_per_scene.add(Integer.parseInt(splitee[1]));
+					
 					for(int x = 1; x < Integer.parseInt(splitee[1]) + 1; x++) {
 						namegif = splitee[0] + x + ".png";
 						texture.add(TextureLoader.getTexture("PNG", new FileInputStream(new File(namegif))));
 					}
-				} else {
+				} else { //if there's only one image for the scene
+					
 					texture.add(TextureLoader.getTexture("PNG", new FileInputStream(new File(name))));
 					this.image_per_scene.add(1);
 				}
@@ -80,7 +88,7 @@ public abstract class ArtScene implements Level {
 		}
 	}
 	
-	public boolean display() {
+	public void display() {
 
 		syncFrameImage--;
 
@@ -99,7 +107,7 @@ public abstract class ArtScene implements Level {
 			glVertex2f(0, currentImage.getTextureHeight());
 		glEnd();
 
-		if(count_imageScene < this.image_per_scene.get(indexScene)) {
+		if(count_imageScene < this.image_per_scene.get(indexScene)) { //if still animating the scene
 			if(syncFrameImage < 0) {
 				currentImage = texture.get(indexImage);
 				indexImage++;
@@ -117,13 +125,14 @@ public abstract class ArtScene implements Level {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				return true;
+				this.finishedImage = true;
+				return;
 			} else {
 				indexImage -= count_imageScene;
 				count_imageScene = 0;
 			}
 		}
-		return false;
+		this.finishedImage = false;
 	}
 	
 	public void write(int x, int y, String text) {

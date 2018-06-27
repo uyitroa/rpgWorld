@@ -16,6 +16,7 @@ import org.newdawn.slick.TrueTypeFont;
 import rpgWorld.interfaces.Level;
 import rpgWorld.levels.EndingScene;
 import rpgWorld.levels.IntroductionScene;
+import rpgWorld.levels.Level1;
 
 /**
  * @author yuitora
@@ -25,6 +26,7 @@ public class GameLauncher {
 
 	public static final int WIDTH = 1440;
 	public static final int HEIGHT = 900;
+	public static final int MOVE_STEP = 5;
 	private List<Level> level = new ArrayList<>();
 	public static TrueTypeFont font = null;
 	
@@ -59,6 +61,7 @@ public class GameLauncher {
 
 	public void setup() {
 		level.add(new IntroductionScene());
+		//level.add(new Level1());
 		level.add(new EndingScene());
 	}
 	
