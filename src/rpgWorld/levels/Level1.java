@@ -18,6 +18,7 @@ public class Level1 extends upsideDownLevel {
 	
 	public Level1() {
 		super(FILE_MAP);
+		setup();
 	}
 	
 	private void setup() {
@@ -27,7 +28,6 @@ public class Level1 extends upsideDownLevel {
 	
 	public boolean show() {
 		super.display();
-		
 		return false;
 	}
 

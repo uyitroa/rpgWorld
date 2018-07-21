@@ -53,32 +53,34 @@ public abstract class upsideDownLevel implements Level{
 	}
 	
 	private void checkKey() {
+		System.out.println(map.getTextureHeight()/RATIO_EDGE_HEIGHT);
+		System.out.println(this.y_background);
 
 		if(Keyboard.isKeyDown(Keyboard.KEY_A)) {
-			if(this.x_background >= map.getTextureWidth()/RATIO_EDGE_WIDTH) {
-				this.x_background -= GameLauncher.MOVE_STEP;
-				moveX -= GameLauncher.MOVE_STEP;
-			}
-		}
-		
-		if(Keyboard.isKeyDown(Keyboard.KEY_D)) {
-			if(this.x_background <= map.getTextureWidth() - map.getTextureWidth()/RATIO_EDGE_WIDTH) {
+			if(this.x_background <= map.getTextureWidth()/RATIO_EDGE_WIDTH) {
 				this.x_background += GameLauncher.MOVE_STEP;
 				moveX += GameLauncher.MOVE_STEP;
 			}
 		}
 		
+		if(Keyboard.isKeyDown(Keyboard.KEY_D)) {
+			if(this.x_background >= map.getTextureWidth() - map.getTextureWidth()/RATIO_EDGE_WIDTH) {
+				this.x_background -= GameLauncher.MOVE_STEP;
+				moveX -= GameLauncher.MOVE_STEP;
+			}
+		}
+		
 		if(Keyboard.isKeyDown(Keyboard.KEY_W)) {
-			if(this.y_background >= map.getTextureHeight()/RATIO_EDGE_HEIGHT) {
-				this.y_background -= GameLauncher.MOVE_STEP;
-				moveY -= GameLauncher.MOVE_STEP;
+			if(this.y_background <= map.getTextureHeight()/RATIO_EDGE_HEIGHT) {
+				this.y_background += GameLauncher.MOVE_STEP;
+				moveY += GameLauncher.MOVE_STEP;
 			}
 		}
 		
 		if(Keyboard.isKeyDown(Keyboard.KEY_S)) {
-			if(this.y_background <= map.getTextureHeight()) {
-				this.y_background += GameLauncher.MOVE_STEP;
-				moveY += GameLauncher.MOVE_STEP;
+			if(this.y_background >= map.getTextureHeight()) {
+				this.y_background -= GameLauncher.MOVE_STEP;
+				moveY -= GameLauncher.MOVE_STEP;
 			}
 		}
 	}

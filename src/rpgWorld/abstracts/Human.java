@@ -28,16 +28,17 @@ public abstract class Human implements Entity {
 	private final int FRAME_DIRECTION = 5;
 	
 	//id
-	private final int BACK = 0;
-	private final int FRONT = 1;
-	private final int LEFT = 2;
-	private final int RIGHT = 3;
+	public final int BACK = 0;
+	public final int FRONT = 1;
+	public final int LEFT = 2;
+	public final int RIGHT = 3;
 	
 	private int syncFrameDir = 1;
 	private String folder_sprites;
 	
 	private List<Texture> sprites = new ArrayList<>();
 	private Texture currentSprite;
+	private int pose = 0;
 	
 	protected int x;
 	protected int y;
@@ -82,9 +83,14 @@ public abstract class Human implements Entity {
 	/*
 	 * change sprite to animate player when move
 	 */
-	public void updateDir(int dir, int pose) {
+	public void updateDir(int dir) {
 		if(syncFrameDir <= 0) {
 			syncFrameDir = FRAME_DIRECTION;
+			if(pose != NUMBER_EACH_DIR - 1) {
+				pose++;
+			} else {
+				pose = 0;
+			}
 			int i = dir * NUMBER_DIR + pose;
 			currentSprite = sprites.get(i);
 		} else {
